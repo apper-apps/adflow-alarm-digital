@@ -258,9 +258,8 @@ const Pacing = () => {
               <MetricCard {...metric} />
             </motion.div>
           ))}
-        </div>
-      </div>
 </div>
+      </div>
 
       {viewMode === 'cards' ? (
         /* Client Pacing Details */
