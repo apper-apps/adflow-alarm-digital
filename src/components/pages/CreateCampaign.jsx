@@ -7,21 +7,23 @@ import Button from '@/components/atoms/Button';
 import FormField from '@/components/molecules/FormField';
 import clientService from '@/services/api/clientService';
 import strategyService from '@/services/api/strategyService';
+import budgetService from '@/services/api/budgetService';
 import campaignService from '@/services/api/campaignService';
 import activityService from '@/services/api/activityService';
 
 const CreateCampaign = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [loading, setLoading] = useState(false);
+const [loading, setLoading] = useState(false);
   const [clients, setClients] = useState([]);
   const [strategies, setStrategies] = useState([]);
+  const [budgets, setBudgets] = useState([]);
   const [formData, setFormData] = useState({
     clientId: location.state?.clientId || '',
     strategyId: '',
     name: '',
     platform: '',
-    budget: '',
+    budgetId: '',
     startDate: '',
     endDate: ''
   });
@@ -31,11 +33,13 @@ const CreateCampaign = () => {
     loadClients();
   }, []);
 
-  useEffect(() => {
+useEffect(() => {
     if (formData.clientId) {
       loadStrategies(formData.clientId);
+      loadBudgets(formData.clientId);
     } else {
       setStrategies([]);
+      setBudgets([]);
     }
   }, [formData.clientId]);
 
@@ -48,12 +52,21 @@ const CreateCampaign = () => {
     }
   };
 
-  const loadStrategies = async (clientId) => {
+const loadStrategies = async (clientId) => {
     try {
       const data = await strategyService.getByClientId(clientId);
       setStrategies(data.filter(s => s.status === 'Active'));
     } catch (error) {
       toast.error('Failed to load strategies');
+    }
+  };
+
+  const loadBudgets = async (clientId) => {
+    try {
+      const data = await budgetService.getByClientId(clientId);
+      setBudgets(data);
+    } catch (error) {
+      toast.error('Failed to load budgets');
     }
   };
 
@@ -85,8 +98,8 @@ const CreateCampaign = () => {
       newErrors.platform = 'Please select a platform';
     }
     
-    if (!formData.budget || parseFloat(formData.budget) <= 0) {
-      newErrors.budget = 'Please enter a valid budget amount';
+if (!formData.budgetId) {
+      newErrors.budgetId = 'Please select a budget';
     }
     
     if (!formData.startDate) {
@@ -114,18 +127,19 @@ const CreateCampaign = () => {
     
     setLoading(true);
     
-    try {
-      const campaignData = {
-        strategyId: parseInt(formData.strategyId, 10),
-        name: formData.name.trim(),
-        platform: formData.platform,
-        budget: parseFloat(formData.budget),
-        startDate: new Date(formData.startDate).toISOString(),
-        endDate: new Date(formData.endDate).toISOString()
-      };
+try {
+       const campaignData = {
+         strategyId: parseInt(formData.strategyId, 10),
+         name: formData.name.trim(),
+         platform: formData.platform,
+         budgetId: parseInt(formData.budgetId, 10),
+         startDate: new Date(formData.startDate).toISOString(),
+         endDate: new Date(formData.endDate).toISOString()
+       };
       
-      const newCampaign = await campaignService.create(campaignData);
+const newCampaign = await campaignService.create(campaignData);
       const client = clients.find(c => c.Id === parseInt(formData.clientId, 10));
+      const selectedBudget = budgets.find(b => b.Id === parseInt(formData.budgetId, 10));
       
       // Log activity
       await activityService.create({
@@ -136,7 +150,7 @@ const CreateCampaign = () => {
         details: {
           campaignName: newCampaign.name,
           platform: newCampaign.platform,
-          budget: newCampaign.budget,
+          budgetName: `Budget #${selectedBudget?.Id} ($${selectedBudget?.total?.toLocaleString()})`,
           clientName: client?.name
         }
       });
@@ -288,19 +302,35 @@ const CreateCampaign = () => {
                 )}
               </div>
               
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <FormField
-                  label="Campaign Budget"
-                  type="number"
-                  value={formData.budget}
-                  onChange={handleInputChange('budget')}
-                  error={errors.budget}
-                  required
-                  icon="DollarSign"
-                  placeholder="Enter budget amount"
-                />
-                
-                <FormField
+<div className="relative">
+                <label className="block text-sm font-medium text-surface-700 mb-2">
+                  Select Budget <span className="text-error">*</span>
+                </label>
+                <select
+                  value={formData.budgetId}
+                  onChange={handleInputChange('budgetId')}
+                  disabled={!formData.clientId}
+                  className={`w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:border-secondary ${
+                    errors.budgetId ? 'border-error' : 'border-surface-300'
+                  } ${!formData.clientId ? 'bg-surface-100' : ''}`}
+                >
+                  <option value="">Choose a budget...</option>
+                  {budgets.map(budget => (
+                    <option key={budget.Id} value={budget.Id}>
+                      Budget #{budget.Id} - ${budget.total.toLocaleString()} ({budget.period})
+                    </option>
+                  ))}
+                </select>
+                {errors.budgetId && (
+                  <p className="mt-1 text-sm text-error flex items-center gap-1">
+                    <ApperIcon name="AlertCircle" size={16} />
+                    {errors.budgetId}
+                  </p>
+                )}
+              </div>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+<FormField
                   label="Start Date"
                   type="date"
                   value={formData.startDate}
