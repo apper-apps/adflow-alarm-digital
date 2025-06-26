@@ -260,9 +260,9 @@ const pacingData = calculatePacingData();
             </motion.div>
 ))}
         </div>
-      </div>
+</div>
 
-{viewMode === 'cards' ? (
+      {viewMode === 'cards' ? (
         // Client Pacing Details
         <div className="bg-white rounded-lg shadow-md border border-surface-200">
           <div className="p-6 border-b border-surface-200">
