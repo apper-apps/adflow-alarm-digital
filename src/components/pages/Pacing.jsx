@@ -2,15 +2,16 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { motion } from "framer-motion";
-import ApperIcon from "@/components/ApperIcon";
-import MetricCard from "@/components/atoms/MetricCard";
-import ProgressBar from "@/components/atoms/ProgressBar";
-import SkeletonLoader from "@/components/molecules/SkeletonLoader";
-import ErrorState from "@/components/molecules/ErrorState";
-import EmptyState from "@/components/molecules/EmptyState";
+import { formatCurrency, formatPercentage } from "@/utils/format";
 import clientService from "@/services/api/clientService";
 import campaignService from "@/services/api/campaignService";
-import { formatCurrency, formatPercentage } from "@/utils/format";
+import ApperIcon from "@/components/ApperIcon";
+import SkeletonLoader from "@/components/molecules/SkeletonLoader";
+import EmptyState from "@/components/molecules/EmptyState";
+import DataTable from "@/components/molecules/DataTable";
+import ErrorState from "@/components/molecules/ErrorState";
+import MetricCard from "@/components/atoms/MetricCard";
+import ProgressBar from "@/components/atoms/ProgressBar";
 
 const Pacing = () => {
   const navigate = useNavigate();
@@ -18,6 +19,8 @@ const Pacing = () => {
   const [campaigns, setCampaigns] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [viewMode, setViewMode] = useState('cards');
+
   useEffect(() => {
     loadPacingData();
   }, []);
@@ -63,8 +66,81 @@ const Pacing = () => {
         campaignCount: clientCampaigns.length
       };
     });
-  };
+};
 
+  const campaignTableColumns = [
+    {
+      key: 'name',
+      label: 'Campaign',
+      sortable: true,
+      render: (value) => (
+        <div className="font-semibold text-surface-900">{value}</div>
+      )
+    },
+    {
+      key: 'status',
+      label: 'Status',
+      sortable: true,
+      render: (value) => (
+        <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+          value === 'Active' ? 'bg-success/10 text-success' :
+          value === 'Paused' ? 'bg-warning/10 text-warning' :
+          'bg-error/10 text-error'
+        }`}>
+          {value}
+        </span>
+      )
+    },
+    {
+      key: 'budget',
+      label: 'Budget',
+      sortable: true,
+      render: (value) => (
+        <span className="font-medium text-surface-900">
+          {formatCurrency(value)}
+        </span>
+      )
+    },
+    {
+      key: 'spent',
+      label: 'Spent',
+      sortable: true,
+      render: (value) => (
+        <span className="font-medium text-surface-900">
+          {formatCurrency(value)}
+        </span>
+      )
+    },
+    {
+      key: 'remaining',
+      label: 'Remaining',
+      sortable: true,
+      render: (_, campaign) => {
+        const remaining = campaign.budget - campaign.spent;
+        return (
+          <span className={`font-medium ${remaining > 0 ? 'text-surface-900' : 'text-error'}`}>
+            {formatCurrency(remaining)}
+          </span>
+        );
+      }
+    },
+    {
+      key: 'spendRate',
+      label: 'Spend Rate',
+      sortable: true,
+      render: (_, campaign) => {
+        const spendRate = campaign.budget > 0 ? (campaign.spent / campaign.budget) * 100 : 0;
+        return (
+          <span className={`font-medium ${
+            spendRate >= 90 ? 'text-error' : 
+            spendRate >= 75 ? 'text-warning' : 'text-success'
+          }`}>
+            {Math.round(spendRate)}%
+          </span>
+        );
+      }
+    }
+  ];
   if (loading) {
     return (
       <div className="p-6">
@@ -136,7 +212,7 @@ const Pacing = () => {
       animate={{ opacity: 1, y: 0 }}
       className="p-6 space-y-6"
     >
-      {/* Header */}
+{/* Header */}
       <div className="bg-white rounded-lg shadow-md border border-surface-200 p-6">
         <div className="flex items-center justify-between mb-6">
           <div>
@@ -145,6 +221,28 @@ const Pacing = () => {
               Budget Pacing
             </h1>
             <p className="text-surface-600">Monitor budget utilization and spending patterns across all clients</p>
+          </div>
+          <div className="flex bg-surface-100 rounded-lg p-1">
+            <button
+              onClick={() => setViewMode('cards')}
+              className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                viewMode === 'cards'
+                  ? 'bg-white text-surface-900 shadow-sm'
+                  : 'text-surface-600 hover:text-surface-900'
+              }`}
+            >
+              <ApperIcon name="LayoutGrid" size={16} />
+            </button>
+            <button
+              onClick={() => setViewMode('table')}
+              className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                viewMode === 'table'
+                  ? 'bg-white text-surface-900 shadow-sm'
+                  : 'text-surface-600 hover:text-surface-900'
+              }`}
+            >
+              <ApperIcon name="Table" size={16} />
+            </button>
           </div>
         </div>
 
@@ -162,13 +260,15 @@ const Pacing = () => {
           ))}
         </div>
       </div>
+</div>
 
-      {/* Client Pacing Details */}
-      <div className="bg-white rounded-lg shadow-md border border-surface-200">
-        <div className="p-6 border-b border-surface-200">
-          <h2 className="text-xl font-semibold text-surface-900">Client Pacing Details</h2>
-        </div>
-
+      {viewMode === 'cards' ? (
+        /* Client Pacing Details */
+        <div className="bg-white rounded-lg shadow-md border border-surface-200">
+          <div className="p-6 border-b border-surface-200">
+            <h2 className="text-xl font-semibold text-surface-900">Client Budget Pacing</h2>
+            <p className="text-surface-600 mt-1">Individual client spend rates and budget utilization</p>
+          </div>
         <div className="p-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {pacingData.map((client, index) => (
@@ -233,11 +333,22 @@ const Pacing = () => {
                 </div>
               </motion.div>
             ))}
-          </div>
+</div>
         </div>
-      </div>
+      ) : (
+        /* Campaign Pacing Table */
+        <div className="bg-white rounded-lg shadow-md border border-surface-200">
+          <div className="p-6 border-b border-surface-200">
+            <h2 className="text-xl font-semibold text-surface-900">Campaign Pacing Details</h2>
+            <p className="text-surface-600 mt-1">Detailed campaign spend and pacing information</p>
+          </div>
+          <DataTable
+            columns={campaignTableColumns}
+            data={campaigns.filter(campaign => campaign.status === 'Active')}
+          />
+        </div>
+      )}
     </motion.div>
-  );
 };
 
 export default Pacing;
