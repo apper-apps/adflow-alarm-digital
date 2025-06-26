@@ -406,9 +406,9 @@ const totalBudget = parseFloat(formData.total);
                     type="button"
                     variant="ghost"
                     onClick={() => {
-                      setShowAddSegment(false);
+setShowAddSegment(false);
                       setEditingSegment(null);
-                      setSegmentForm({ name: '', amount: '' });
+                      setSegmentForm({ name: '', amount: '', campaignId: '', strategyId: '' });
                     }}
                   >
                     Cancel

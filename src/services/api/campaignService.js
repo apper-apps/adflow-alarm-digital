@@ -1,6 +1,6 @@
-import { delay } from '@/utils/delay';
-import campaignData from '@/services/mockData/campaigns.json';
-
+import { delay } from "@/utils/delay";
+import campaignData from "@/services/mockData/campaigns.json";
+import strategyService from "@/services/api/strategyService";
 let campaigns = [...campaignData];
 
 const campaignService = {
@@ -15,7 +15,19 @@ const campaignService = {
     if (!campaign) {
       throw new Error('Campaign not found');
     }
-    return { ...campaign };
+return { ...campaign };
+  },
+
+  async getByClientId(clientId) {
+    await delay(250);
+    try {
+      const strategies = await strategyService.getByClientId(clientId);
+      const strategyIds = strategies.map(s => s.Id);
+      return campaigns.filter(c => strategyIds.includes(c.strategyId));
+    } catch (error) {
+      console.error('Error fetching campaigns by client ID:', error);
+      return [];
+    }
   },
 
   async getByStrategyId(strategyId) {
