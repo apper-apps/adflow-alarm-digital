@@ -1,0 +1,101 @@
+[
+  {
+    "Id": 1,
+    "clientId": 1,
+    "name": "New Vehicle Launch Campaign",
+    "goal": "Increase awareness and drive test drives for new model launches",
+    "allocatedBudget": 6000,
+    "status": "Active",
+    "createdAt": "2024-01-16T10:00:00Z",
+    "targetAudience": "Luxury car buyers aged 35-55",
+    "kpi": "Test drive bookings"
+  },
+  {
+    "Id": 2,
+    "clientId": 1,
+    "name": "Service Department Promotion",
+    "goal": "Drive service appointments and maintenance revenue",
+    "allocatedBudget": 3000,
+    "status": "Active",
+    "createdAt": "2024-01-18T14:30:00Z",
+    "targetAudience": "Existing customers",
+    "kpi": "Service appointments booked"
+  },
+  {
+    "Id": 3,
+    "clientId": 1,
+    "name": "Used Car Inventory Push",
+    "goal": "Clear used car inventory and generate leads",
+    "allocatedBudget": 4500,
+    "status": "Active",
+    "createdAt": "2024-01-20T09:15:00Z",
+    "targetAudience": "Budget-conscious buyers",
+    "kpi": "Used car inquiries"
+  },
+  {
+    "Id": 4,
+    "clientId": 2,
+    "name": "Honda Certified Pre-Owned",
+    "goal": "Promote certified pre-owned Honda vehicles",
+    "allocatedBudget": 4000,
+    "status": "Active",
+    "createdAt": "2024-02-04T11:00:00Z",
+    "targetAudience": "Reliable car seekers",
+    "kpi": "CPO vehicle leads"
+  },
+  {
+    "Id": 5,
+    "clientId": 2,
+    "name": "Seasonal Service Specials",
+    "goal": "Increase service revenue during peak seasons",
+    "allocatedBudget": 2500,
+    "status": "Active",
+    "createdAt": "2024-02-05T15:45:00Z",
+    "targetAudience": "Local Honda owners",
+    "kpi": "Service revenue"
+  },
+  {
+    "Id": 6,
+    "clientId": 3,
+    "name": "F-150 Lightning Electric",
+    "goal": "Drive awareness and reservations for electric F-150",
+    "allocatedBudget": 7000,
+    "status": "Active",
+    "createdAt": "2024-01-29T13:20:00Z",
+    "targetAudience": "Tech-savvy truck buyers",
+    "kpi": "Reservation conversions"
+  },
+  {
+    "Id": 7,
+    "clientId": 3,
+    "name": "Fleet Sales Initiative",
+    "goal": "Target commercial fleet buyers",
+    "allocatedBudget": 3500,
+    "status": "Active",
+    "createdAt": "2024-02-01T10:30:00Z",
+    "targetAudience": "Business fleet managers",
+    "kpi": "Fleet quotes requested"
+  },
+  {
+    "Id": 8,
+    "clientId": 4,
+    "name": "Luxury SUV Showcase",
+    "goal": "Promote BMW X-series luxury SUVs",
+    "allocatedBudget": 8000,
+    "status": "Active",
+    "createdAt": "2024-02-11T12:00:00Z",
+    "targetAudience": "Affluent families",
+    "kpi": "Luxury SUV test drives"
+  },
+  {
+    "Id": 9,
+    "clientId": 4,
+    "name": "BMW Performance Series",
+    "goal": "Target performance enthusiasts",
+    "allocatedBudget": 6000,
+    "status": "Active",
+    "createdAt": "2024-02-12T14:15:00Z",
+    "targetAudience": "Performance car enthusiasts",
+    "kpi": "Performance model inquiries"
+  }
+]

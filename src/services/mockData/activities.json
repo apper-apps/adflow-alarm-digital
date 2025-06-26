@@ -1,0 +1,130 @@
+[
+  {
+    "Id": 1,
+    "userId": "john.doe@agency.com",
+    "action": "Created new campaign",
+    "entityType": "Campaign",
+    "entityId": "10",
+    "timestamp": "2024-02-15T14:30:00Z",
+    "details": {
+      "campaignName": "Electric Truck - Social Campaign",
+      "platform": "Facebook",
+      "budget": 3000
+    }
+  },
+  {
+    "Id": 2,
+    "userId": "sarah.smith@agency.com",
+    "action": "Updated budget allocation",
+    "entityType": "Budget",
+    "entityId": "1",
+    "timestamp": "2024-02-15T13:45:00Z",
+    "details": {
+      "clientName": "Premier Auto Group",
+      "previousAmount": 5500,
+      "newAmount": 6000,
+      "strategy": "New Vehicle Launch Campaign"
+    }
+  },
+  {
+    "Id": 3,
+    "userId": "mike.johnson@agency.com",
+    "action": "Paused campaign",
+    "entityType": "Campaign",
+    "entityId": "5",
+    "timestamp": "2024-02-15T12:20:00Z",
+    "details": {
+      "campaignName": "Used Car Showcase - Display",
+      "reason": "Performance optimization"
+    }
+  },
+  {
+    "Id": 4,
+    "userId": "john.doe@agency.com",
+    "action": "Created new strategy",
+    "entityType": "Strategy",
+    "entityId": "9",
+    "timestamp": "2024-02-15T11:15:00Z",
+    "details": {
+      "strategyName": "BMW Performance Series",
+      "clientName": "Coastal BMW",
+      "allocatedBudget": 6000
+    }
+  },
+  {
+    "Id": 5,
+    "userId": "lisa.wang@agency.com",
+    "action": "Added new client",
+    "entityType": "Client",
+    "entityId": "4",
+    "timestamp": "2024-02-15T10:30:00Z",
+    "details": {
+      "clientName": "Coastal BMW",
+      "totalBudget": 20000,
+      "location": "Miami, FL"
+    }
+  },
+  {
+    "Id": 6,
+    "userId": "sarah.smith@agency.com",
+    "action": "Campaign optimization",
+    "entityType": "Campaign",
+    "entityId": "7",
+    "timestamp": "2024-02-15T09:45:00Z",
+    "details": {
+      "campaignName": "Honda CPO - Search Campaign",
+      "optimization": "Increased bid on high-performing keywords"
+    }
+  },
+  {
+    "Id": 7,
+    "userId": "mike.johnson@agency.com",
+    "action": "Generated report",
+    "entityType": "Report",
+    "entityId": "monthly-performance",
+    "timestamp": "2024-02-15T08:00:00Z",
+    "details": {
+      "reportType": "Monthly Performance Summary",
+      "clientsIncluded": 4,
+      "dateRange": "January 2024"
+    }
+  },
+  {
+    "Id": 8,
+    "userId": "john.doe@agency.com",
+    "action": "Budget alert triggered",
+    "entityType": "Budget",
+    "entityId": "2",
+    "timestamp": "2024-02-14T16:30:00Z",
+    "details": {
+      "clientName": "Sunset Motors",
+      "alertType": "80% budget utilization",
+      "remainingBudget": 1700
+    }
+  },
+  {
+    "Id": 9,
+    "userId": "lisa.wang@agency.com",
+    "action": "Updated campaign targeting",
+    "entityType": "Campaign",
+    "entityId": "9",
+    "timestamp": "2024-02-14T15:20:00Z",
+    "details": {
+      "campaignName": "F-150 Lightning - Innovation Focus",
+      "changes": "Expanded geographic targeting to include Texas markets"
+    }
+  },
+  {
+    "Id": 10,
+    "userId": "sarah.smith@agency.com",
+    "action": "Activated new strategy",
+    "entityType": "Strategy",
+    "entityId": "8",
+    "timestamp": "2024-02-14T14:10:00Z",
+    "details": {
+      "strategyName": "Luxury SUV Showcase",
+      "clientName": "Coastal BMW",
+      "launchDate": "2024-02-15"
+    }
+  }
+]

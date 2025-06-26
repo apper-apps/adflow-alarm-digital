@@ -1,0 +1,77 @@
+[
+  {
+    "Id": 1,
+    "name": "Premier Auto Group",
+    "totalBudget": 15000,
+    "budgetPeriod": "monthly",
+    "status": "Active",
+    "createdAt": "2024-01-15T10:30:00Z",
+    "contact": {
+      "name": "Michael Rodriguez",
+      "email": "michael@premierauto.com",
+      "phone": "+1 (555) 123-4567"
+    },
+    "dealershipType": "Multi-brand",
+    "location": "Los Angeles, CA"
+  },
+  {
+    "Id": 2,
+    "name": "Sunset Motors",
+    "totalBudget": 8500,
+    "budgetPeriod": "monthly",
+    "status": "Active",
+    "createdAt": "2024-02-03T14:20:00Z",
+    "contact": {
+      "name": "Sarah Chen",
+      "email": "sarah@sunsetmotors.com",
+      "phone": "+1 (555) 987-6543"
+    },
+    "dealershipType": "Honda",
+    "location": "San Diego, CA"
+  },
+  {
+    "Id": 3,
+    "name": "Metro Ford",
+    "totalBudget": 12000,
+    "budgetPeriod": "monthly",
+    "status": "Active",
+    "createdAt": "2024-01-28T09:15:00Z",
+    "contact": {
+      "name": "David Thompson",
+      "email": "david@metroford.com",
+      "phone": "+1 (555) 456-7890"
+    },
+    "dealershipType": "Ford",
+    "location": "Phoenix, AZ"
+  },
+  {
+    "Id": 4,
+    "name": "Coastal BMW",
+    "totalBudget": 20000,
+    "budgetPeriod": "monthly",
+    "status": "Active",
+    "createdAt": "2024-02-10T16:45:00Z",
+    "contact": {
+      "name": "Lisa Martinez",
+      "email": "lisa@coastalbmw.com",
+      "phone": "+1 (555) 234-5678"
+    },
+    "dealershipType": "BMW",
+    "location": "Miami, FL"
+  },
+  {
+    "Id": 5,
+    "name": "Valley Chevrolet",
+    "totalBudget": 10000,
+    "budgetPeriod": "monthly",
+    "status": "Paused",
+    "createdAt": "2024-01-20T11:30:00Z",
+    "contact": {
+      "name": "Robert Wilson",
+      "email": "robert@valleychevrolet.com",
+      "phone": "+1 (555) 345-6789"
+    },
+    "dealershipType": "Chevrolet",
+    "location": "Austin, TX"
+  }
+]
