@@ -136,11 +136,12 @@ const Pacing = () => {
             spendRate >= 75 ? 'text-warning' : 'text-success'
           }`}>
             {Math.round(spendRate)}%
-          </span>
+</span>
         );
       }
     }
   ];
+
   if (loading) {
     return (
       <div className="p-6">
@@ -174,7 +175,7 @@ const Pacing = () => {
     );
   }
 
-  const pacingData = calculatePacingData();
+const pacingData = calculatePacingData();
   const totalBudget = pacingData.reduce((sum, client) => sum + client.totalBudget, 0);
   const totalSpent = pacingData.reduce((sum, client) => sum + client.totalSpent, 0);
   const avgSpendRate = totalBudget > 0 ? (totalSpent / totalBudget) * 100 : 0;
@@ -257,12 +258,12 @@ const Pacing = () => {
             >
               <MetricCard {...metric} />
             </motion.div>
-          ))}
-</div>
+))}
+        </div>
       </div>
 
-      {viewMode === 'cards' ? (
-        /* Client Pacing Details */
+{viewMode === 'cards' ? (
+        // Client Pacing Details
         <div className="bg-white rounded-lg shadow-md border border-surface-200">
           <div className="p-6 border-b border-surface-200">
             <h2 className="text-xl font-semibold text-surface-900">Client Budget Pacing</h2>
@@ -326,8 +327,8 @@ const Pacing = () => {
                         client.spendRate >= 75 ? 'text-warning' : 'text-success'
                       }`}>
                         {formatPercentage(client.totalSpent, client.totalBudget)}
-                      </p>
-</div>
+</p>
+                    </div>
                   </div>
                 </div>
               </motion.div>
@@ -335,8 +336,8 @@ const Pacing = () => {
           </div>
         </div>
         </div>
-      ) : (
-        /* Campaign Pacing Table */
+) : (
+        // Campaign Pacing Table
         <div className="bg-white rounded-lg shadow-md border border-surface-200">
           <div className="p-6 border-b border-surface-200">
             <h2 className="text-xl font-semibold text-surface-900">Campaign Pacing Details</h2>
