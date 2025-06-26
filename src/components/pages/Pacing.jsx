@@ -330,9 +330,10 @@ const Pacing = () => {
                     </div>
                   </div>
                 </div>
-              </motion.div>
+</motion.div>
             ))}
-</div>
+          </div>
+        </div>
         </div>
       ) : (
         /* Campaign Pacing Table */
