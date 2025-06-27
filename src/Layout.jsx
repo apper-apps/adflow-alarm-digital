@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Outlet, NavLink, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useSelector } from 'react-redux';
 import ApperIcon from '@/components/ApperIcon';
 import { routes } from '@/config/routes';
+import { AuthContext } from './App';
 
 const Layout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -57,14 +59,9 @@ const Layout = () => {
               </span>
             </button>
             
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-surface-200 rounded-full flex items-center justify-center">
-                <ApperIcon name="User" size={16} className="text-surface-600" />
-              </div>
-              <div className="hidden md:block">
-                <p className="text-sm font-medium text-surface-900">John Doe</p>
-                <p className="text-xs text-surface-500">Agency Admin</p>
-              </div>
+<div className="flex items-center gap-3">
+              <UserProfile />
+              <LogoutButton />
             </div>
           </div>
         </div>
@@ -131,6 +128,54 @@ const Layout = () => {
         </main>
       </div>
     </div>
+  );
+};
+
+const UserProfile = () => {
+  const { user } = useSelector((state) => state.user);
+  
+  if (!user) {
+    return (
+      <div className="flex items-center gap-3">
+        <div className="w-8 h-8 bg-surface-200 rounded-full flex items-center justify-center">
+          <ApperIcon name="User" size={16} className="text-surface-600" />
+        </div>
+        <div className="hidden md:block">
+          <p className="text-sm font-medium text-surface-900">Guest User</p>
+          <p className="text-xs text-surface-500">Not Authenticated</p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="flex items-center gap-3">
+      <div className="w-8 h-8 bg-surface-200 rounded-full flex items-center justify-center">
+        <ApperIcon name="User" size={16} className="text-surface-600" />
+      </div>
+      <div className="hidden md:block">
+        <p className="text-sm font-medium text-surface-900">
+          {user.firstName && user.lastName ? `${user.firstName} ${user.lastName}` : user.emailAddress || 'User'}
+        </p>
+        <p className="text-xs text-surface-500">
+          {user.accounts?.[0]?.companyName || 'AdFlow Pro User'}
+        </p>
+      </div>
+    </div>
+  );
+};
+
+const LogoutButton = () => {
+  const { logout } = useContext(AuthContext);
+  
+  return (
+    <button
+      onClick={logout}
+      className="p-2 hover:bg-surface-100 rounded-lg transition-colors text-surface-600 hover:text-error"
+      title="Logout"
+    >
+      <ApperIcon name="LogOut" size={20} />
+    </button>
   );
 };
 
